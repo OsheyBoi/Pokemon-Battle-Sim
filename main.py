@@ -2,6 +2,8 @@ import time
 import random
 yourHealth = 25
 opponentHealth = 25
+Defence = 1
+opponentDefence = 1
 # starter Pokemon selection
 print("Choose a starter:")
 print("1. Treecko" " a")
@@ -29,37 +31,40 @@ if Pokemon == "c":
 # end starter pokemon selection
 # moves
 def moves():  # Battle Turn
-    global yourHealth
-    global opponentHealth
+    global yourHealth, opponentDefence, opponentHealth
     print(You[0] + " (a)")
     print(You[1] + " (b)")
     print(You[2] + " (c)")
     Attack = input("Move:")  # Your move
     miss = random.randint(0, 10)
-    crit = random.randint(0, 10)
+    crit = random.randint(1, 9)
     if miss < 8:  # Attact Hit or Miss
         if Attack == "a":
             print(Pokemon + " Used " + You[0])
             if crit == 1:
-                opponentHealth = opponentHealth - 8
+                opponentHealth = opponentHealth - 8 * opponentDefence
                 print("A Critical Hit!")
             else:
-                opponentHealth = opponentHealth - 5
+                opponentHealth = opponentHealth - 5 * opponentDefence
         if Attack == "b":
             print(Pokemon + " Used " + You[1])
             if crit == 1:
-                opponentHealth = opponentHealth - 5
+                opponentHealth = opponentHealth - 5 * opponentDefence
                 print("A Critical Hit!")
             else:
-                opponentHealth = opponentHealth - 3
+                opponentHealth = opponentHealth - 3 * opponentDefence
         if Attack == "c":
             print(Pokemon + " Used " + You[2])
-            print("ERROR")
+            if opponentDefence < 2:
+             print(Pokemon + "Lowered " + Opponent + " Defence")
+             opponentDefence = opponentDefence + 0.2
+            else:
+                print(Opponent + " Defence couldn't be lowered" )
+
     else:
         print(Pokemon + "'s attack missed!")
 def movesopponent():  # Battle Turn
-    global yourHealth
-    global opponentHealth
+    global yourHealth, Defence, opponentHealth
     Attack2 = random.randint(1, 3) # Your move
     miss2 = random.randint(0, 10)
     crit2 = random.randint(0, 10)
@@ -67,20 +72,24 @@ def movesopponent():  # Battle Turn
         if Attack2 == 1:
             print(Opponent + " Used " + moves2[0])
             if crit2 == 1:
-                yourHealth = yourHealth - 7
+                yourHealth = yourHealth - 7 * Defence
                 print("A Critical Hit!")
             else:
-                yourHealth = yourHealth - 4
+                yourHealth = yourHealth - 4 * Defence
         if Attack2 == 2:
             print(Opponent + " Used " + moves2[1])
             if crit2 == 1:
-                yourHealth = yourHealth - 6
+                yourHealth = yourHealth - 12 * Defence
                 print("A Critical Hit!")
             else:
-                yourHealth = yourHealth - 12
+                yourHealth = yourHealth - 6 * Defence
         if Attack2 == 3:
-            print(Opponent + " Used " + moves2[2])
-            print("ERROR")
+            print(Pokemon + " Used " + moves2[2])
+            if Defence < 2:
+                print(Opponent + "Lowered " + Pokemon + " Defence")
+                Defence = Defence + 0.2
+            else:
+                print(Pokemon + " Defence couldn't be lowered")
     else:
         print(Pokemon + "'s attack missed!")
 # move end
@@ -101,8 +110,10 @@ while yourHealth > 0 and opponentHealth > 0:
     if yourHealth <= 0:
         print(Pokemon + " has " + "Fainted")
     else:
-        print(Pokemon + " has " + str(opponentHealth) + " Health")
+        print(Pokemon + " has " + str(yourHealth) + " Health")
         time.sleep(1)
+        print(opponentDefence)
+        print(Defence)
 time.sleep(1)
 if yourHealth <= 0:
     print("You Lose!")
