@@ -50,14 +50,16 @@ def moves():  # Battle Turn
             print(Pokemon + " Used " + You[1])
             if crit == 1:
                 opponentHealth = opponentHealth - 5 * opponentDefence
+                print(You[1] + "wasn't very effective")
                 print("A Critical Hit!")
             else:
                 opponentHealth = opponentHealth - 3 * opponentDefence
+                print(You[1] + "wasn't very effective")
         if Attack == "c":
             print(Pokemon + " Used " + You[2])
             if opponentDefence < 2:
              print(Pokemon + "Lowered " + Opponent + " Defence")
-             opponentDefence = opponentDefence + 0.2
+             opponentDefence = opponentDefence + 0.3
             else:
                 print(Opponent + " Defence couldn't be lowered" )
 
@@ -81,13 +83,15 @@ def movesopponent():  # Battle Turn
             if crit2 == 1:
                 yourHealth = yourHealth - 12 * Defence
                 print("A Critical Hit!")
+                print(Attack2[1] + "was super effective")
             else:
                 yourHealth = yourHealth - 6 * Defence
+                print(Attack2[1] + "was super effective")
         if Attack2 == 3:
             print(Pokemon + " Used " + moves2[2])
-            if Defence < 2:
+            if Defence < 3:
                 print(Opponent + "Lowered " + Pokemon + " Defence")
-                Defence = Defence + 0.2
+                Defence = Defence + 0.3
             else:
                 print(Pokemon + " Defence couldn't be lowered")
     else:
@@ -107,13 +111,12 @@ while yourHealth > 0 and opponentHealth > 0:
         print(Opponent + " has " + str(opponentHealth) + " Health")
         time.sleep(1)
     movesopponent()
+    time.sleep(1)
     if yourHealth <= 0:
         print(Pokemon + " has " + "Fainted")
     else:
         print(Pokemon + " has " + str(yourHealth) + " Health")
         time.sleep(1)
-        print(opponentDefence)
-        print(Defence)
 time.sleep(1)
 if yourHealth <= 0:
     print("You Lose!")
