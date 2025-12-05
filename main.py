@@ -81,11 +81,11 @@ def movesopponent():  # Battle Turn
         if Attack2 == 2:
             print(Opponent + " Used " + moves2[1])
             if crit2 == 1:
-                yourHealth = yourHealth - 12 * Defence
+                yourHealth = yourHealth - 10 * Defence
                 print("A Critical Hit!")
                 print(Attack2[1] + "was super effective")
             else:
-                yourHealth = yourHealth - 6 * Defence
+                yourHealth = yourHealth - 5 * Defence
                 print(Attack2[1] + "was super effective")
         if Attack2 == 3:
             print(Pokemon + " Used " + moves2[2])
