@@ -27,18 +27,18 @@ if Pokemon == "c":
     Pokemon = c
     You = ["Tackle", "Ember", "tail whip"]
     Opponent = b
-    Moves2 = [["Tackle", "Water Gun", "Tail whip"]]
+    moves2 = ["Tackle", "Water Gun", "Tail whip"]
 # end starter pokemon selection
 # moves
 def moves():  # Battle Turn
-    global yourHealth, opponentDefence, opponentHealth
+    global yourHealth, opponentDefence, opponentHealth, moves2
     print(You[0] + " (a)")
     print(You[1] + " (b)")
     print(You[2] + " (c)")
     Attack = input("Move:")  # Your move
     miss = random.randint(0, 10)
     crit = random.randint(1, 9)
-    if miss < 8:  # Attact Hit or Miss
+    if miss < 8:  # Attack Hit or Miss
         if Attack == "a":
             print(Pokemon + " Used " + You[0])
             if crit == 1:
@@ -57,7 +57,7 @@ def moves():  # Battle Turn
                 print(You[1] + "wasn't very effective")
         if Attack == "c":
             print(Pokemon + " Used " + You[2])
-            if opponentDefence < 2:
+            if opponentDefence < 3:
              print(Pokemon + "Lowered " + Opponent + " Defence")
              opponentDefence = opponentDefence + 0.3
             else:
@@ -83,10 +83,10 @@ def movesopponent():  # Battle Turn
             if crit2 == 1:
                 yourHealth = yourHealth - 10 * Defence
                 print("A Critical Hit!")
-                print(Attack2[1] + "was super effective")
+                print(moves2[1] + "was super effective")
             else:
                 yourHealth = yourHealth - 5 * Defence
-                print(Attack2[1] + "was super effective")
+                print(moves2[1] + "was super effective")
         if Attack2 == 3:
             print(Pokemon + " Used " + moves2[2])
             if Defence < 3:
