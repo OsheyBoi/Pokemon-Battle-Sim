@@ -16,22 +16,28 @@ Pokemon = input("a, b, or c?")
 if Pokemon == "a":
     Pokemon = a  # Your pokemon
     You = ["Scratch", "Absorb", "Tail whip"]  # Your pokemon's moves
-    Opponent = c  # Opponent's pokemon
-    moves2 = ["Tackle", "Ember", "Tail whip"]  # Opponent's pokemon moves
+    Opponent1 = c  # Opponent's pokemon
+    moves2a = ["Tackle", "Ember", "Tail whip"]  # Opponent's pokemon moves
+    Opponent2 = b
+    moves2b = ["Tackle", "Water Gun", "Tail whip"]
 if Pokemon == "b":
     Pokemon = b
     You = ["Tackle", "Water Gun", "Tail whip"]
-    Opponent = a
-    moves2 = ["Scratch", "Absorb", "Tail whip"]
+    Opponent1 = a
+    moves2a = ["Scratch", "Absorb", "Tail whip"]
+    Opponent2 = c
+    moves2b = ["Tackle", "Ember", "tail whip"]
 if Pokemon == "c":
     Pokemon = c
     You = ["Tackle", "Ember", "tail whip"]
-    Opponent = b
-    moves2 = ["Tackle", "Water Gun", "Tail whip"]
+    Opponent1 = b
+    moves2a = ["Tackle", "Water Gun", "Tail whip"]
+    Opponent2 = a
+    moves2b = ["Scratch", "Absorb", "Tail whip"]
 # end starter pokemon selection
 # moves
 def moves():  # Battle Turn
-    global yourHealth, opponentDefence, opponentHealth, moves2
+    global yourHealth, opponentDefence, opponentHealth, moves2a, moves2b
     print(You[0] + " (a)")
     print(You[1] + " (b)")
     print(You[2] + " (c)")
@@ -58,10 +64,10 @@ def moves():  # Battle Turn
         if Attack == "c":
             print(Pokemon + " Used " + You[2])
             if opponentDefence < 3:
-             print(Pokemon + "Lowered " + Opponent + " Defence")
+             print(Pokemon + "Lowered " + Opponent1 + " Defence")
              opponentDefence = opponentDefence + 0.3
             else:
-                print(Opponent + " Defence couldn't be lowered" )
+                print(Opponent1 + " Defence couldn't be lowered" )
 
     else:
         print(Pokemon + "'s attack missed!")
@@ -72,25 +78,25 @@ def movesopponent():  # Battle Turn
     crit2 = random.randint(0, 10)
     if miss2 < 8:  # Attack Hit or Miss
         if Attack2 == 1:
-            print(Opponent + " Used " + moves2[0])
+            print(Opponent1 + " Used " + moves2a[0])
             if crit2 == 1:
                 yourHealth = yourHealth - 7 * Defence
                 print("A Critical Hit!")
             else:
                 yourHealth = yourHealth - 4 * Defence
         if Attack2 == 2:
-            print(Opponent + " Used " + moves2[1])
+            print(Opponent1 + " Used " + moves2a[1])
             if crit2 == 1:
                 yourHealth = yourHealth - 10 * Defence
                 print("A Critical Hit!")
-                print(moves2[1] + "was super effective")
+                print(moves2a[1] + "was super effective")
             else:
                 yourHealth = yourHealth - 5 * Defence
-                print(moves2[1] + "was super effective")
+                print(moves2a[1] + "was super effective")
         if Attack2 == 3:
-            print(Pokemon + " Used " + moves2[2])
+            print(Pokemon + " Used " + moves2a[2])
             if Defence < 3:
-                print(Opponent + "Lowered " + Pokemon + " Defence")
+                print(Opponent1 + "Lowered " + Pokemon + " Defence")
                 Defence = Defence + 0.3
             else:
                 print(Pokemon + " Defence couldn't be lowered")
@@ -98,7 +104,7 @@ def movesopponent():  # Battle Turn
         print(Pokemon + "'s attack missed!")
 # move end
 # battle info
-print(Pokemon + " vs " + Opponent)
+print(Pokemon + " vs " + Opponent1)
 time.sleep(1)
 print("Go " + Pokemon)
 time.sleep(1)
@@ -106,9 +112,9 @@ while yourHealth > 0 and opponentHealth > 0:
     moves()
     time.sleep(1)
     if opponentHealth <= 0:
-        print(Opponent + " has " + "Fainted")
+        print(Opponent1 + " has " + "Fainted")
     else:
-        print(Opponent + " has " + str(opponentHealth) + " Health")
+        print(Opponent1 + " has " + str(opponentHealth) + " Health")
         time.sleep(1)
     movesopponent()
     time.sleep(1)
