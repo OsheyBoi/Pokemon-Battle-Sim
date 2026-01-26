@@ -1,6 +1,8 @@
 # Pokemon-Battle-Sim
 Last Full Releases -  V0.2 
+
 Early Release Bulid -  V1.0 Beta
+
 Dev Version - V1.0
 
 A simple pokemon battle simulator base on Python
