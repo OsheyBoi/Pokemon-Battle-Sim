@@ -1,4 +1,3 @@
-import time
 import random
 import pygame
 global state, pokemon, yourpokemon, battlestate
@@ -44,10 +43,10 @@ while running:
                             state = 2
                     if event.key == pygame.K_5:
                             yourpokemon = "Oshawott"
+                            yourmoves = ["Tackle", "Water Gun", "Tail whip"]
                             pokemon=  2 #toggle
                             opponentpokemon = "Treeko"
                             state = 2
-                            print(state)
                     if event.key == pygame.K_6:
                             yourpokemon = "Litten"
                             pokemon =  3 #toggle
@@ -60,15 +59,18 @@ while running:
                             if event.key == pygame.K_1:
                                         battlestate = 2
                                         playermove = 1
-                                        print ("Player used move 1")
+                                        print ("Player used " + yourmoves[0])
+                                        opponentHealth = opponentHealth - 5 * opponentDefence
                             if event.key == pygame.K_2:
                                         battlestate = 2
                                         playermove = 2
-                                        print ("Player used move 2")
+                                        print ("Player used " + yourmoves[1])
+                                        opponentHealth = opponentHealth - 3 * opponentDefence
                             if event.key == pygame.K_3:
                                         battlestate = 2
                                         playermove = 3
-                                        print ("Player used move 3")
+                                        print ("Player used " + yourmoves[2])
+                                        opponentDefence = opponentDefence + 0.3
     if state == 2:
         screen.fill((0,0,0))
         background_img = pygame.image.load("back.png").convert_alpha()
