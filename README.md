@@ -8,13 +8,18 @@ Dev Version - V1.0
 V1.0 Checklist
 
 Visual Screen ✅
+
 Battle System ✅
+
 Oppent attack system ❌
+
 Health bars ❌
+
 Sprites  ✅
 
 
 A simple pokemon battle simulator base on Python
+
 
 Images used are from the Offical Games or Infinite Fusion*
 
