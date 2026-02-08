@@ -17,6 +17,7 @@ Health bars ❌
 
 Sprites  ✅
 
+(Note: I realised its compleltly broken and am working on fixing it)
 
 A simple pokemon battle simulator base on Python
 
