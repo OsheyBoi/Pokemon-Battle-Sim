@@ -1,7 +1,7 @@
 # Pokemon-Battle-Sim
 Last Full Releases -  V0.2 
 
-Early Release Bulid -  V1.0 Beta 2
+Early Release Bulid - (Reverted till fixed)
 
 Dev Version - V1.0 
 
@@ -17,7 +17,6 @@ Health bars ❌
 
 Sprites  ✅
 
-(Note: I realised its compleltly broken and am working on fixing it)
 
 A simple pokemon battle simulator base on Python
 
