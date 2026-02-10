@@ -11,11 +11,14 @@ Visual Screen ✅
 
 Battle System ✅
 
+Sprites  ✅
+
 Oppent attack system ❌
 
 Health bars ❌
 
-Sprites  ✅
+Music ❌
+
 
 
 A simple pokemon battle simulator base on Python
