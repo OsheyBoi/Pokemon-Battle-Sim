@@ -1,7 +1,7 @@
 # Pokemon-Battle-Sim
 Last Full Releases -  V0.2 
 
-Early Release Bulid - (Reverted till fixed)
+Early Release Bulid - V1.0 Beta 3
 
 Dev Version - V1.0 
 
@@ -15,7 +15,7 @@ Sprites  ✅
 
 Oppent attack system ❌
 
-Health bars ❌
+Health bars -------- 0%
 
 Music ❌
 
