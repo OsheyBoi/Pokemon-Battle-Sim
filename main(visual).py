@@ -57,6 +57,7 @@ while running:
                     opponentpokemon = "litten"
                     state = 2
                     print("P1")
+                    background_img = pygame.image.load("back.png").convert_alpha()
 
                 if event.key == pygame.K_5:
                     yourpokemon = "Oshawott"
@@ -88,14 +89,14 @@ while running:
                 if event.key == pygame.K_2:
                     battlestate = 2
                     playermove = 2
-                    print(yourpokemon + " used " + yourmoves[1])
+                    attackmsg = (yourpokemon + " used " + yourmoves[1])
                     opponentHealth = opponentHealth - 3 * opponentDefence
                     display_until = pygame.time.get_ticks() + 3000
 
                 if event.key == pygame.K_3:
                     battlestate = 2
                     playermove = 3
-                    print(yourpokemon + " used " + yourmoves[2])
+                    attackmsg = (yourpokemon + " used " + yourmoves[2])
                     opponentDefence = opponentDefence + 0.3
                     display_until = pygame.time.get_ticks() + 3000
 
@@ -115,18 +116,16 @@ while running:
 
         playerHp_img = pygame.image.load("Hp2.png").convert_alpha()
         text1 = font.render(yourpokemon, True, black, )
+
         rivalHp_img = pygame.image.load("Hp1.png").convert_alpha()
-        text2 = font.render(opponentpokemon, True, black, )
+        text2 = font.render(opponentpokemon, True, black,)
 
         if battlestate == 1:
-            screen.fill((0, 0, 0))
             text3 = font.render('Select Your Move', True, black, )
 
             ui_img = pygame.image.load("MS" + str(pokemon) + ".png").convert_alpha()
             resized_ui = pygame.transform.scale(ui_img, (1000, 200))
-
         elif battlestate == 2:
-            screen.fill((0, 0, 0))
             text3 = font.render(attackmsg, True, black, )
             ui_img = pygame.image.load("Textbox.png").convert_alpha()
             resized_ui = pygame.transform.scale(ui_img, (1000, 200))
@@ -152,6 +151,11 @@ while running:
     screen.blit(text1, (750, 300))
     screen.blit(text2, (100, 20))
 
+    if state == 2:
+        pygame.draw.rect(screen, black, (670, 370, 310, 60))
+        pygame.draw.rect(screen, green, (675, 375, yourHealth * 12 , 50))
+        pygame.draw.rect(screen, black, (20, 85, 310, 60))
+        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 12 , 50))
     if battlestate == 1:
         screen.blit(text3, (75, 575))
     elif battlestate == 2:
