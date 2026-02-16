@@ -29,8 +29,8 @@ text1 = font.render('', True, black, )
 text2 = font.render('', True, black, )
 text3 = font.render('', True, black, )
 
-ui_img = pygame.image.load("nothing.png").convert_alpha()
-resized_ui = pygame.transform.scale(ui_img, (1000, 200))
+ui_img = pygame.image.load("selection.png").convert_alpha()
+resized_ui = pygame.transform.scale(ui_img, (1000, 700))
 
 player_img = pygame.image.load("nothing.png").convert_alpha()
 resized_player = pygame.transform.scale(player_img, (200, 200))
@@ -38,8 +38,9 @@ resized_player = pygame.transform.scale(player_img, (200, 200))
 rival_img = pygame.image.load("nothing.png").convert_alpha()
 resized_rival = pygame.transform.scale(rival_img, (200, 200))
 
-background_img = pygame.image.load("selction.png").convert()
+background_img = pygame.image.load("back.png").convert()
 resized_background = pygame.transform.scale(background_img, (1000, 700))
+
 
 playerHp_img = pygame.image.load("nothing.png").convert_alpha()
 rivalHp_img = pygame.image.load("nothing.png").convert_alpha()
@@ -85,6 +86,7 @@ while running:
                     attackmsg = (yourpokemon + " used " + yourmoves[0])
                     opponentHealth = opponentHealth - 5 * opponentDefence
                     display_until = pygame.time.get_ticks() + 3000
+
 
                 if event.key == pygame.K_2:
                     battlestate = 2
@@ -150,8 +152,11 @@ while running:
     screen.blit(rivalHp_img, (0 , 0))
     screen.blit(text1, (750, 300))
     screen.blit(text2, (100, 20))
-
+    if state == 1:
+        screen.blit(resized_ui, (0, 00))
     if state == 2:
+        screen.blit(resized_ui, (0, 500))
+        resized_ui = pygame.transform.scale(ui_img, (1000, 200))
         pygame.draw.rect(screen, black, (670, 370, 310, 60))
         pygame.draw.rect(screen, green, (675, 375, yourHealth * 12 , 50))
         pygame.draw.rect(screen, black, (20, 85, 310, 60))
