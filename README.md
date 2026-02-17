@@ -15,7 +15,7 @@ Sprites  ✅
 
 Oppent attack system ❌
 
-Health bars -------- 0%
+Health bars ✅
 
 Music ❌
 
