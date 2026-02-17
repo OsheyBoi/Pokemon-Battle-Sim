@@ -13,7 +13,7 @@ Battle System ✅
 
 Sprites  ✅
 
-Oppent attack system ❌
+Oppent attack system - Broken
 
 Health bars ✅
 
