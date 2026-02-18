@@ -5,6 +5,7 @@ opponentHealth = 25
 Defence = 1
 opponentDefence = 1
 # starter Pokemon selection
+print("test")
 print("Choose a starter:")
 print("1. Treecko" " a")
 print("2. Oshawott" " b")

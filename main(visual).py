@@ -1,11 +1,14 @@
 import random
 import pygame
+import time
 global state, pokemon, yourpokemon, battlestate, attackmsg
+global yourHealth, Defence
 global ui_img, rival_img, player_img, background_img
 pygame.init()
 
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
 yourHealth = 25
+display_until = 1
 opponentHealth = 25
 Defence = 1
 opponentDefence = 1
@@ -23,7 +26,7 @@ green = (0, 255, 0)
 black = (0, 0, 0)
 X = 400
 Y = 400
-font = pygame.font.SysFont('Chalkboard.ttf', 64)
+font = pygame.font.SysFont('Chalkboard.ptf', 64)
 
 text1 = font.render('', True, black, )
 text2 = font.render('', True, black, )
@@ -48,6 +51,7 @@ pygame.display.set_caption('Pokemon Battle Sim')
 
 running = True
 while running:
+    current_time = pygame.time.get_ticks()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if state == 1:
@@ -55,7 +59,8 @@ while running:
                     yourpokemon = "Treeko"
                     yourmoves = ["Scratch", "Absorb", "Tail whip"]
                     pokemon = 1  # toggle
-                    opponentpokemon = "litten"
+                    opponentpokemon = "Litten"
+                    rivalmoves = ["Tackle", "Ember", "Tail whip"]
                     state = 2
                     print("P1")
                     background_img = pygame.image.load("back.png").convert_alpha()
@@ -65,6 +70,7 @@ while running:
                     yourmoves = ["Tackle", "Water Gun", "Tail whip"]
                     pokemon = 2  # toggle
                     opponentpokemon = "Treeko"
+                    rivalmoves = ["Scratch", "Absorb", "Tail whip"]
                     state = 2
                     print("P2")
 
@@ -73,38 +79,66 @@ while running:
                     yourmoves = ["Tackle", "Ember", "Tail whip"]
                     pokemon = 3  # toggle
                     opponentpokemon = "Oshawott"
+                    rivalmoves = ["Tackle", "Water Gun", "Tail whip"]
                     state = 2
                     print("P3")
 
-            elif state == 2 and battlestate == 1:
-                print("Loaded State 2")
-                print("1")
+            elif state == 2:
+                if battlestate == 1 and current_time > display_until:
+                    print("Loaded State 2")
 
-                if event.key == pygame.K_1:
+                    if event.key == pygame.K_1:
+                        playermove = 1
+                        attackmsg = (yourpokemon + " used " + yourmoves[0])
+                        opponentHealth = opponentHealth - 5 * opponentDefence
+                        print("moveused")
+
+                    if event.key == pygame.K_2:
+                        playermove = 2
+                        attackmsg = (yourpokemon + " used " + yourmoves[1])
+                        opponentHealth = opponentHealth - 3 * opponentDefence
+                        print("moveused")
+
+
+                    if event.key == pygame.K_3:
+                        playermove = 3
+                        attackmsg = (yourpokemon + " used " + yourmoves[2])
+                        opponentDefence = opponentDefence + 0.3
+                        print("moveused")
+
                     battlestate = 2
-                    playermove = 1
-                    attackmsg = (yourpokemon + " used " + yourmoves[0])
-                    opponentHealth = opponentHealth - 5 * opponentDefence
-                    display_until = pygame.time.get_ticks() + 3000
+                    display_until = current_time + 2000
+        if opponentHealth <= 0:
+            state = 3
+        elif state == 3:
+            if event.key == pygame.K_SPACE:
+                quit()
+    if state == 2:
+        if battlestate == 2 and current_time > display_until:
+            Ai_move = (random.randint(1, 3))
+            print(Ai_move)
+            if Ai_move == 1:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[0])
+                yourHealth = yourHealth - 5 * Defence
+                print("aimoveused")
 
 
-                if event.key == pygame.K_2:
-                    battlestate = 2
-                    playermove = 2
-                    attackmsg = (yourpokemon + " used " + yourmoves[1])
-                    opponentHealth = opponentHealth - 3 * opponentDefence
-                    display_until = pygame.time.get_ticks() + 3000
+            if Ai_move == 2:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[1])
+                yourHealth = yourHealth - 8 * Defence
+                print("aimoveused")
 
-                if event.key == pygame.K_3:
-                    battlestate = 2
-                    playermove = 3
-                    attackmsg = (yourpokemon + " used " + yourmoves[2])
-                    opponentDefence = opponentDefence + 0.3
-                    display_until = pygame.time.get_ticks() + 3000
 
-            elif state == 3:
-                if event.key == pygame.K_SPACE:
-                    quit()
+            if Ai_move == 3:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[2])
+                Defence = Defence + 0.3
+                print("aimoveused")
+
+            battlestate = 1
+            display_until = current_time + 2000
+
+
+
 
     if state == 2:
         screen.fill((0, 0, 0))
@@ -127,16 +161,10 @@ while running:
 
             ui_img = pygame.image.load("MS" + str(pokemon) + ".png").convert_alpha()
             resized_ui = pygame.transform.scale(ui_img, (1000, 200))
-        elif battlestate == 2:
+        elif battlestate == 2 :
             text3 = font.render(attackmsg, True, black, )
             ui_img = pygame.image.load("Textbox.png").convert_alpha()
             resized_ui = pygame.transform.scale(ui_img, (1000, 200))
-
-            if battlestate == 2 and pygame.time.get_ticks() > display_until:
-                battlestate = 1
-
-                if opponentHealth <= 0:
-                    state = 3
 
         if state == 3:
             ui_img = pygame.image.load("nothing.png").convert_alpha()
@@ -168,10 +196,5 @@ while running:
 
     pygame.display.flip()
 clock.tick(60)
-# state machine continues below
-
-
-# yourpokemon_img = pygame.image.load(pokemon+".png").convert_alpha()
-# screen.blit(popup_img, (0, 0))
 
 
