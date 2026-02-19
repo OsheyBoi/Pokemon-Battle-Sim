@@ -1,9 +1,7 @@
 import random
 import pygame
 import time
-global state, pokemon, yourpokemon, battlestate, attackmsg
-global yourHealth, Defence
-global ui_img, rival_img, player_img, background_img
+global state, pokemon, yourpokemon, battlestate, attackmsg, yourHealth, Defence, ui_img, rival_img, player_img, background_img
 pygame.init()
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
 yourHealth = 25
@@ -174,7 +172,7 @@ while running:
             ui_img = pygame.image.load("nothing.png").convert_alpha()
             player_img = pygame.image.load("nothing.png").convert_alpha()
             rival_img = pygame.image.load("nothing.png").convert_alpha()
-            background_img = pygame.image.load("loser.png").convert()
+            background_img = pygame.image.load("Loser.png").convert()
     if state  == 2:
         if battlestate == 1:
             ui_img = pygame.image.load("MS" + str(pokemon) + ".png").convert_alpha()
