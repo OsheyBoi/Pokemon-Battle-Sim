@@ -1,132 +1,217 @@
-import time
 import random
+import pygame
+import time
+global state, pokemon, yourpokemon, battlestate, attackmsg
+global yourHealth, Defence
+global ui_img, rival_img, player_img, background_img
+pygame.init()
+state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
 yourHealth = 25
+display_until = 1
+current_time = 1
 opponentHealth = 25
 Defence = 1
 opponentDefence = 1
-# starter Pokemon selection
-print("test")
-print("Choose a starter:")
-print("1. Treecko" " a")
-print("2. Oshawott" " b")
-print("3. Litten" " c")
-a = "Treecko"
-b = "Oshawott"
-c = "Litten"
-Pokemon = input("a, b, or c?")
-if Pokemon == "a":
-    Pokemon = a  # Your pokemon
-    You = ["Scratch", "Absorb", "Tail whip"]  # Your pokemon's moves
-    Opponent1 = c  # Opponent's pokemon
-    moves2a = ["Tackle", "Ember", "Tail whip"]  # Opponent's pokemon moves
-    Opponent2 = b
-    moves2b = ["Tackle", "Water Gun", "Tail whip"]
-if Pokemon == "b":
-    Pokemon = b
-    You = ["Tackle", "Water Gun", "Tail whip"]
-    Opponent1 = a
-    moves2a = ["Scratch", "Absorb", "Tail whip"]
-    Opponent2 = c
-    moves2b = ["Tackle", "Ember", "tail whip"]
-if Pokemon == "c":
-    Pokemon = c
-    You = ["Tackle", "Ember", "tail whip"]
-    Opponent1 = b
-    moves2a = ["Tackle", "Water Gun", "Tail whip"]
-    Opponent2 = a
-    moves2b = ["Scratch", "Absorb", "Tail whip"]
-# end starter pokemon selection
-# moves
-def moves():  # Battle Turn
-    global yourHealth, opponentDefence, opponentHealth, moves2a, moves2b
-    print(You[0] + " (a)")
-    print(You[1] + " (b)")
-    print(You[2] + " (c)")
-    Attack = input("Move:")  # Your move
-    miss = random.randint(0, 10)
-    crit = random.randint(1, 9)
-    if miss < 8:  # Attack Hit or Miss
-        if Attack == "a":
-            print(Pokemon + " Used " + You[0])
-            if crit == 1:
-                opponentHealth = opponentHealth - 8 * opponentDefence
-                print("A Critical Hit!")
-            else:
-                opponentHealth = opponentHealth - 5 * opponentDefence
-        if Attack == "b":
-            print(Pokemon + " Used " + You[1])
-            if crit == 1:
-                opponentHealth = opponentHealth - 5 * opponentDefence
-                print(You[1] + "wasn't very effective")
-                print("A Critical Hit!")
-            else:
-                opponentHealth = opponentHealth - 3 * opponentDefence
-                print(You[1] + "wasn't very effective")
-        if Attack == "c":
-            print(Pokemon + " Used " + You[2])
-            if opponentDefence < 3:
-             print(Pokemon + "Lowered " + Opponent1 + " Defence")
-             opponentDefence = opponentDefence + 0.3
-            else:
-                print(Opponent1 + " Defence couldn't be lowered" )
+battlestate = 1
+attackmsg = "na"
 
-    else:
-        print(Pokemon + "'s attack missed!")
-def movesopponent():  # Battle Turn
-    global yourHealth, Defence, opponentHealth
-    Attack2 = random.randint(1, 3) # Your move
-    miss2 = random.randint(0, 10)
-    crit2 = random.randint(0, 10)
-    if miss2 < 8:  # Attack Hit or Miss
-        if Attack2 == 1:
-            print(Opponent1 + " Used " + moves2a[0])
-            if crit2 == 1:
-                yourHealth = yourHealth - 7 * Defence
-                print("A Critical Hit!")
-            else:
-                yourHealth = yourHealth - 4 * Defence
-        if Attack2 == 2:
-            print(Opponent1 + " Used " + moves2a[1])
-            if crit2 == 1:
-                yourHealth = yourHealth - 10 * Defence
-                print("A Critical Hit!")
-                print(moves2a[1] + "was super effective")
-            else:
+
+pygame.init()
+screen = pygame.display.set_mode((1000, 700))
+clock = pygame.time.Clock()
+show_popup = True  # Flag to control the pop up
+
+white = (255, 255, 255)
+blue = (50, 150, 255)
+gray = (200, 200, 200)
+green = (0, 255, 0)
+black = (0, 0, 0)
+X = 400
+Y = 400
+font = pygame.font.SysFont('Chalkboard.ptf', 64)
+
+text1 = font.render('', True, black, )
+text2 = font.render('', True, black, )
+text3 = font.render('', True, black, )
+
+ui_img = pygame.image.load("selection.png").convert_alpha()
+resized_ui = pygame.transform.scale(ui_img, (1000, 700))
+
+player_img = pygame.image.load("nothing.png").convert_alpha()
+resized_player = pygame.transform.scale(player_img, (200, 200))
+
+rival_img = pygame.image.load("nothing.png").convert_alpha()
+resized_rival = pygame.transform.scale(rival_img, (200, 200))
+
+background_img = pygame.image.load("back.png").convert()
+resized_background = pygame.transform.scale(background_img, (1000, 700))
+
+
+playerHp_img = pygame.image.load("nothing.png").convert_alpha()
+rivalHp_img = pygame.image.load("nothing.png").convert_alpha()
+pygame.display.set_caption('Pokemon Battle Sim')
+
+running = True
+while running:
+    current_time = pygame.time.get_ticks()
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if state == 1:
+                if event.key == pygame.K_4:
+                    yourpokemon = "Treeko"
+                    yourmoves = ["Scratch", "Absorb", "Tail whip"]
+                    pokemon = 1  # toggle
+                    opponentpokemon = "Litten"
+                    rivalmoves = ["Tackle", "Ember", "Tail whip"]
+                    state = 2
+                    print("P1")
+                    background_img = pygame.image.load("back.png").convert_alpha()
+
+                if event.key == pygame.K_5:
+                    yourpokemon = "Oshawott"
+                    yourmoves = ["Tackle", "Water Gun", "Tail whip"]
+                    pokemon = 2  # toggle
+                    opponentpokemon = "Treeko"
+                    rivalmoves = ["Scratch", "Absorb", "Tail whip"]
+                    state = 2
+                    print("P2")
+
+                if event.key == pygame.K_6:
+                    yourpokemon = "Litten"
+                    yourmoves = ["Tackle", "Ember", "Tail whip"]
+                    pokemon = 3  # toggle
+                    opponentpokemon = "Oshawott"
+                    rivalmoves = ["Tackle", "Water Gun", "Tail whip"]
+                    state = 2
+                    print("P3")
+
+            elif state == 2:
+                if battlestate == 1 and current_time > display_until:
+                    print("Loaded State 2")
+                    moveused = 0
+                    if event.key == pygame.K_1:
+                        playermove = 1
+                        attackmsg = (yourpokemon + " used " + yourmoves[0])
+                        opponentHealth = opponentHealth - 5 * opponentDefence
+                        print("moveused")
+                        battlestate = 2
+                        moveused = 1
+                    if event.key == pygame.K_2:
+                        playermove = 2
+                        attackmsg = (yourpokemon + " used " + yourmoves[1])
+                        opponentHealth = opponentHealth - 3 * opponentDefence
+                        print("moveused")
+                        battlestate = 2
+                        moveused = 1
+                    if event.key == pygame.K_3:
+                        playermove = 3
+                        attackmsg = (yourpokemon + " used " + yourmoves[2])
+                        opponentDefence = opponentDefence + 0.3
+                        print("moveused")
+                        moveused = 1
+                        battlestate = 2
+
+                    if moveused == 1:
+                        ui_img = pygame.image.load("Textbox.png").convert_alpha()
+                        display_until = current_time + 3000
+        if state >= 3:
+            if event.key == pygame.K_SPACE:
+                quit()
+    if state == 2:
+        if battlestate == 2 and current_time > display_until:
+            Ai_move = (random.randint(1, 3))
+            print(Ai_move)
+            if Ai_move == 1:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[0])
                 yourHealth = yourHealth - 5 * Defence
-                print(moves2a[1] + "was super effective")
-        if Attack2 == 3:
-            print(Pokemon + " Used " + moves2a[2])
-            if Defence < 3:
-                print(Opponent1 + "Lowered " + Pokemon + " Defence")
+                print("aimoveused")
+
+
+            if Ai_move == 2:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[1])
+                yourHealth = yourHealth - 8 * Defence
+                print("aimoveused")
+
+
+            if Ai_move == 3:
+                attackmsg = (opponentpokemon + " used " + rivalmoves[2])
                 Defence = Defence + 0.3
-            else:
-                print(Pokemon + " Defence couldn't be lowered")
-    else:
-        print(Pokemon + "'s attack missed!")
-# move end
-# battle info
-print(Pokemon + " vs " + Opponent1)
-time.sleep(1)
-print("Go " + Pokemon)
-time.sleep(1)
-while yourHealth > 0 and opponentHealth > 0:
-    moves()
-    time.sleep(1)
+                print("aimoveused")
+
+            display_until = current_time + 3000
+            battlestate = 3
+
+        if battlestate == 3 and current_time > display_until:
+            battlestate = 1
+            ui_img = pygame.image.load("MS" + str(pokemon) + ".png").convert_alpha()
+
+
+
+
+    if state == 2:
+        screen.fill((0, 0, 0))
+        background_img = pygame.image.load("back.png").convert_alpha()
+        player_img = pygame.image.load(str(yourpokemon) + " front.png").convert_alpha()
+        rival_img = pygame.image.load(str(opponentpokemon) + " back.png").convert_alpha()
+
+        resized_background = pygame.transform.scale(background_img, (1000, 700))
+        resized_player = pygame.transform.scale(player_img, (200, 200))
+        resized_rival = pygame.transform.scale(rival_img, (200, 200))
+
+        playerHp_img = pygame.image.load("Hp2.png").convert_alpha()
+        text1 = font.render(yourpokemon, True, black, )
+
+        rivalHp_img = pygame.image.load("Hp1.png").convert_alpha()
+        text2 = font.render(opponentpokemon, True, black,)
+
+
+        if state == 3:
+            ui_img = pygame.image.load("nothing.png").convert_alpha()
+            player_img = pygame.image.load("nothing.png").convert_alpha()
+            rival_img = pygame.image.load("nothing.png").convert_alpha()
+            background_img = pygame.image.load("Winner.png").convert()
+        if state == 4:
+            ui_img = pygame.image.load("nothing.png").convert_alpha()
+            player_img = pygame.image.load("nothing.png").convert_alpha()
+            rival_img = pygame.image.load("nothing.png").convert_alpha()
+            background_img = pygame.image.load("loser.png").convert()
+    if state  == 2:
+        if battlestate == 1:
+            ui_img = pygame.image.load("MS" + str(pokemon) + ".png").convert_alpha()
+
+        elif battlestate == 2 or 3 :
+            ui_img = pygame.image.load("Textbox.png").convert_alpha()
+
+    screen.blit(resized_background, (0, 0))
+    screen.blit(resized_ui, (0, 500))
+    screen.blit(resized_player, (40, 280))
+    screen.blit(resized_rival, (700,60 ))
+    screen.blit(playerHp_img, (0, 270))
+    screen.blit(rivalHp_img, (0 , 0))
+    screen.blit(text1, (750, 300))
+    screen.blit(text2, (100, 20))
+    if state == 1:
+        screen.blit(resized_ui, (0, 00))
+    if state == 2:
+        screen.blit(resized_ui, (0, 500))
+        resized_ui = pygame.transform.scale(ui_img, (1000, 200))
+        pygame.draw.rect(screen, black, (670, 370, 310, 60))
+        pygame.draw.rect(screen, green, (675, 375, yourHealth * 12 , 50))
+        pygame.draw.rect(screen, black, (20, 85, 310, 60))
+        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 12 , 50))
+        msg = attackmsg if battlestate > 1 else ("Select Move (1,2,3)")
+        text3 = font.render(msg, True, black, )
+
+    if battlestate == 1:
+        screen.blit(text3, (75, 575))
+    elif battlestate >= 2:
+      screen.blit(text3, (300, 575))
     if opponentHealth <= 0:
-        print(Opponent1 + " has " + "Fainted")
-    else:
-        print(Opponent1 + " has " + str(opponentHealth) + " Health")
-        time.sleep(1)
-    movesopponent()
-    time.sleep(1)
+        state = 3
     if yourHealth <= 0:
-        print(Pokemon + " has " + "Fainted")
-    else:
-        print(Pokemon + " has " + str(yourHealth) + " Health")
-        time.sleep(1)
-time.sleep(1)
-if yourHealth <= 0:
-    print("You Lose!")
-if opponentHealth <= 0:
-    print("You Win!")
+        state = 4
+
+    pygame.display.flip()
+clock.tick(60)
+
 
