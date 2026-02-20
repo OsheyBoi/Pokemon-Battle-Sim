@@ -1,14 +1,16 @@
 import random
+from ctypes.macholib.dyld import dyld_executable_path_search
+
 import pygame
 import time
-global state, pokemon, yourpokemon, battlestate, attackmsg, yourHealth, Defence, ui_img, rival_img, player_img, background_img
+global state, pokemon, yourpokemon, battlestate, attackmsg, yourHealth, Defence, ui_img, rival_img, player_img, background_img, Dex
 pygame.init()
 # Set the base of each variable
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
-yourHealth = 25
+yourHealth = 30
 display_until = 1
 current_time = 1
-opponentHealth = 25
+opponentHealth = 30
 Defence = 1
 opponentDefence = 1
 battlestate = 1
@@ -61,9 +63,14 @@ program_img = pygame.image.load("Logo.png")
 pygame.display.set_icon(program_img)
 
 # Music
-#pygame.mixer.music.load()
+pygame.mixer.music.load("Theme.ogg")
 
-
+# Dex and Moves
+Dex = {
+    "Treeko" : ["Scratch", "Absorb", "Tail whip"],
+    "Littens" : ["Tackle", "Ember", "Tail whip"],
+    "Oshawott" : ["Tackle", "Water Gun", "Tail whip"]
+}
 #Running of games
 running = True
 while running:
@@ -74,30 +81,27 @@ while running:
             if state == 1:
                 if event.key == pygame.K_4:
                     yourpokemon = "Treeko"
-                    yourmoves = ["Scratch", "Absorb", "Tail whip"]
                     pokemon = 1  # toggle
                     opponentpokemon = "Litten"
-                    rivalmoves = ["Tackle", "Ember", "Tail whip"]
                     state = 2
                     print("P1")
+                    pygame.mixer.music.play(loops=10)
 
                 if event.key == pygame.K_5:
                     yourpokemon = "Oshawott"
-                    yourmoves = ["Tackle", "Water Gun", "Tail whip"]
                     pokemon = 2  # toggle
                     opponentpokemon = "Treeko"
-                    rivalmoves = ["Scratch", "Absorb", "Tail whip"]
                     state = 2
                     print("P2")
+                    pygame.mixer.music.play(loops=10)
 
                 if event.key == pygame.K_6:
                     yourpokemon = "Litten"
-                    yourmoves = ["Tackle", "Ember", "Tail whip"]
                     pokemon = 3  # toggle
                     opponentpokemon = "Oshawott"
-                    rivalmoves = ["Tackle", "Water Gun", "Tail whip"]
                     state = 2
                     print("P3")
+                    pygame.mixer.music.play(loops=10)
 
             # Move Selection
             elif state == 2:
@@ -105,33 +109,30 @@ while running:
                     print("Loaded State 2")
                     moveused = 0
                     Base = 5 # Base Damage
+
                     if event.key == pygame.K_1:
-                        playermove = 1
-                        attackmsg = (yourpokemon + " used " + yourmoves[0])
+                        playermove = 0
                         damage = Attack(Base)
                         opponentHealth = opponentHealth - damage  * opponentDefence
-                        print("moveused")
-                        battlestate = 2
                         moveused = 1
                     if event.key == pygame.K_2:
-                        playermove = 2
-                        attackmsg = (yourpokemon + " used " + yourmoves[1])
+                        playermove = 1
                         damage = Attack(Base)
                         opponentHealth = opponentHealth - damage * opponentDefence / 2
-                        print("moveused")
-                        battlestate = 2
                         moveused = 1
+
                     if event.key == pygame.K_3:
                         playermove = 3
-                        attackmsg = (yourpokemon + " used " + yourmoves[2])
                         opponentDefence = opponentDefence + 0.3
-                        print("moveused")
                         moveused = 1
-                        battlestate = 2
 
                     if moveused == 1:
+                        move = (Dex)[yourpokemon][playermove]
+                        attackmsg = (yourpokemon + " used " + move)
+                        moveused = 1
+                        battlestate = 2
                         ui_img = pygame.image.load("Textbox.png").convert_alpha()
-                        display_until = current_time + 3000
+                        display_until = current_time + 1500
         # Quit once win/lose
         if state >= 3:
             if event.key == pygame.K_SPACE:
@@ -162,7 +163,7 @@ while running:
                 Defence = Defence + 0.3
                 print("aimoveused")
 
-            display_until = current_time + 3000
+            display_until = current_time + 1500
             battlestate = 3
         #Disable Textbox
         if battlestate == 3 and current_time > display_until:
@@ -218,9 +219,11 @@ while running:
     screen.blit(rivalHp_img, (0 , 0))
     screen.blit(text1, (715, 310))
     screen.blit(text2, (95, 40))
+
     if state == 1:
         screen.blit(resized_ui, (0, 0))
         text3 = font.render("Select your Pokemon", True, black,)
+
     if state == 2:
         # HP Bar Drawing
         BAR_HEIGHT = 50
@@ -228,21 +231,25 @@ while running:
         screen.blit(resized_ui, (0, 500))
         resized_ui = pygame.transform.scale(ui_img, (1000, 200))
         pygame.draw.rect(screen, black, (670, 370, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (675, 375, yourHealth * 12 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (675, 375, yourHealth * 10 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
         pygame.draw.rect(screen, black, (20, 85, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 12, BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 10, BAR_HEIGHT), border_radius=CURVE_RADIUS)
         msg = attackmsg if battlestate > 1 else ("Select Move (1,2,3)")
         text3 = font.render(msg, True, black,)
+
     if state == 1:
         screen.blit(text3, (250, 70))
+
     if state == 2:
         if battlestate == 1:
             screen.blit(text3, (75, 575))
         elif battlestate >= 2:
           screen.blit(text3, (300, 575))
     # Set to win or lose
+
     if opponentHealth <= 0:
         state = 3
+
     if yourHealth <= 0:
         state = 4
 
