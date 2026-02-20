@@ -14,6 +14,6 @@ Code Clean up ❌
 
 Modify Damage system ❌
 
-Added info about what dose what ❌
+Added info about what dose what ✅
 
 A simple pokemon battle simulator base on Python
