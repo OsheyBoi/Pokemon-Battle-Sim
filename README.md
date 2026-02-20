@@ -6,7 +6,7 @@ Dev Version - V1.1
 
 V1.1 Checklist
 
-Music (Missing File)
+Music (Soon)
 
 Slight altered Ui ✅
 
