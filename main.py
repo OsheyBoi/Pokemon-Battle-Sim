@@ -205,6 +205,7 @@ while running:
     screen.blit(text2, (95, 40))
     if state == 1:
         screen.blit(resized_ui, (0, 0))
+        text3 = font.render("Select your Pokemon", True, black,)
     if state == 2:
         # HP Bar Drawing
         BAR_HEIGHT = 50
@@ -216,12 +217,14 @@ while running:
         pygame.draw.rect(screen, black, (20, 85, 310, 60), border_radius=30)
         pygame.draw.rect(screen, green, (25, 90, opponentHealth * 12, BAR_HEIGHT), border_radius=CURVE_RADIUS)
         msg = attackmsg if battlestate > 1 else ("Select Move (1,2,3)")
-        text3 = font.render(msg, True, black, )
-
-    if battlestate == 1:
-        screen.blit(text3, (75, 575))
-    elif battlestate >= 2:
-      screen.blit(text3, (300, 575))
+        text3 = font.render(msg, True, black,)
+    if state == 1:
+        screen.blit(text3, (250, 70))
+    if state == 2:
+        if battlestate == 1:
+            screen.blit(text3, (75, 575))
+        elif battlestate >= 2:
+          screen.blit(text3, (300, 575))
     # Set to win or lose
     if opponentHealth <= 0:
         state = 3

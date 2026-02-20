@@ -8,9 +8,9 @@ V1.1 Checklist
 
 Music ❌
 
-Slight altered Ui ❌
+Slight altered Ui -------|--- ~ 70% Complete
 
-Code Clean up ❌
+Code Clean up -----|----- ~ 50% Complete
 
 Modify Damage system ❌
 
