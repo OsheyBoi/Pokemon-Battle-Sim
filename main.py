@@ -14,6 +14,12 @@ opponentDefence = 1
 battlestate = 1
 attackmsg = "na"
 
+def Attack(Damage):
+    min = Damage - 1
+    max = Damage + 1
+    Damage = random.randint(min,max)
+    return Damage
+
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 700))
@@ -53,6 +59,9 @@ pygame.display.set_caption('Pokemon Battle Sim')
 
 program_img = pygame.image.load("Logo.png")
 pygame.display.set_icon(program_img)
+
+# Music
+#pygame.mixer.music.load()
 
 
 #Running of games
@@ -95,17 +104,20 @@ while running:
                 if battlestate == 1 and current_time > display_until:
                     print("Loaded State 2")
                     moveused = 0
+                    Base = 5 # Base Damage
                     if event.key == pygame.K_1:
                         playermove = 1
                         attackmsg = (yourpokemon + " used " + yourmoves[0])
-                        opponentHealth = opponentHealth - 5 * opponentDefence
+                        damage = Attack(Base)
+                        opponentHealth = opponentHealth - damage  * opponentDefence
                         print("moveused")
                         battlestate = 2
                         moveused = 1
                     if event.key == pygame.K_2:
                         playermove = 2
                         attackmsg = (yourpokemon + " used " + yourmoves[1])
-                        opponentHealth = opponentHealth - 3 * opponentDefence
+                        damage = Attack(Base)
+                        opponentHealth = opponentHealth - damage * opponentDefence / 2
                         print("moveused")
                         battlestate = 2
                         moveused = 1
@@ -130,15 +142,18 @@ while running:
         if battlestate == 2 and current_time > display_until:
             Ai_move = (random.randint(1, 3))
             print(Ai_move)
+            base = 5
             if Ai_move == 1:
                 attackmsg = (opponentpokemon + " used " + rivalmoves[0])
-                yourHealth = yourHealth - 5 * Defence
+                damage = Attack(Base)
+                yourHealth = yourHealth - damage * Defence
                 print("aimoveused")
 
 
             if Ai_move == 2:
                 attackmsg = (opponentpokemon + " used " + rivalmoves[1])
-                yourHealth = yourHealth - 8 * Defence
+                damage = Attack(Base)
+                yourHealth = yourHealth - damage * Defence * 2
                 print("aimoveused")
 
 

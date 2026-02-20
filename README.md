@@ -6,13 +6,13 @@ Dev Version - V1.1
 
 V1.1 Checklist
 
-Music ❌
+Music (Missing File)
 
-Slight altered Ui -------|--- ~ 70% Complete
+Slight altered Ui ✅
 
-Code Clean up -----|----- ~ 50% Complete
+Code Clean up -------|--- ~ 70% Complete
 
-Modify Damage system ❌
+Modify Damage system ✅
 
 Added info about what dose what ✅
 
