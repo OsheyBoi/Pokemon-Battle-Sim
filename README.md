@@ -10,10 +10,12 @@ Music (Soon)
 
 Slight altered Ui ✅
 
-Code Clean up -------|--- ~ 70% Complete
+Code Clean up ✅
 
 Modify Damage system ✅
 
 Added info about what dose what ✅
+
+Addtional Code for later Versions ❌
 
 A simple pokemon battle simulator base on Python
