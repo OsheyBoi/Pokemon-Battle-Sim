@@ -122,7 +122,7 @@ while running:
                         moveused = 1
 
                     if event.key == pygame.K_3:
-                        playermove = 3
+                        playermove = 2
                         opponentDefence = opponentDefence + 0.3
                         moveused = 1
 
