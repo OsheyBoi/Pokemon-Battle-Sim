@@ -68,7 +68,7 @@ pygame.mixer.music.load("Theme.ogg")
 # Dex and Moves
 Dex = {
     "Treeko" : ["Scratch", "Absorb", "Tail whip"],
-    "Littens" : ["Tackle", "Ember", "Tail whip"],
+    "Litten" : ["Tackle", "Ember", "Tail whip"],
     "Oshawott" : ["Tackle", "Water Gun", "Tail whip"]
 }
 #Running of games
@@ -129,7 +129,7 @@ while running:
                     if moveused == 1:
                         move = (Dex)[yourpokemon][playermove]
                         attackmsg = (yourpokemon + " used " + move)
-                        moveused = 1
+                        moveused = 0
                         battlestate = 2
                         ui_img = pygame.image.load("Textbox.png").convert_alpha()
                         display_until = current_time + 1500
@@ -137,34 +137,35 @@ while running:
         if state >= 3:
             if event.key == pygame.K_SPACE:
                 quit()
-
     if state == 2:
         # Ai Attack
         if battlestate == 2 and current_time > display_until:
             Ai_move = (random.randint(1, 3))
             print(Ai_move)
-            base = 5
+            Base = 5
             if Ai_move == 1:
-                attackmsg = (opponentpokemon + " used " + rivalmoves[0])
                 damage = Attack(Base)
                 yourHealth = yourHealth - damage * Defence
                 print("aimoveused")
 
 
             if Ai_move == 2:
-                attackmsg = (opponentpokemon + " used " + rivalmoves[1])
                 damage = Attack(Base)
                 yourHealth = yourHealth - damage * Defence * 2
                 print("aimoveused")
 
 
             if Ai_move == 3:
-                attackmsg = (opponentpokemon + " used " + rivalmoves[2])
                 Defence = Defence + 0.3
+                moveused = 1
                 print("aimoveused")
 
-            display_until = current_time + 1500
-            battlestate = 3
+            if moveused == 1:
+                move = (Dex)[yourpokemon][playermove]
+                attackmsg = (opponentpokemon + " used " + move)
+                display_until = current_time + 1500
+                battlestate = 3
+                moveused = 0
         #Disable Textbox
         if battlestate == 3 and current_time > display_until:
             battlestate = 1

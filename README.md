@@ -6,9 +6,7 @@ Dev Version - V1.2
 
 V1.2 Checklist
 
-- ?
-- ?
-- ?
+- Complete Attack system rework 
 
 
 A simple pokemon battle simulator base on Python
