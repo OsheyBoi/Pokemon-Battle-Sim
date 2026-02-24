@@ -6,7 +6,12 @@ Dev Version - V1.2
 
 V1.2 Checklist
 
-- Complete Attack system rework 
+- Complete Attack system rework ~70% ✅
+  - Type System
+  - Easy to add more Pokemon
+  - Updated Hp / Defence 
+- 2 New Pokemon (Eevee and Pikachu) ❌
+- New icon ❌
 
 
 A simple pokemon battle simulator base on Python
