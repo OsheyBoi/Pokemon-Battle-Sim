@@ -2,7 +2,7 @@
 
 Last Full Release - V1.1
 
-Dev Version - V1.2
+Dev Version - V2.0
 
 V1.2 Checklist
 
