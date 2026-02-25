@@ -8,12 +8,12 @@ global playermove, Type, rivalType
 pygame.init()
 # Set the base of each variable
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
-yourHealth = 30
+yourHealth = 50
 display_until = 1
 current_time = 1
-opponentHealth = 30
-Defence = 1
-opponentDefence = 1
+opponentHealth = 50
+Defence = 0.75
+opponentDefence = 0.75
 battlestate = 1
 attackmsg = "na"
 
@@ -30,7 +30,11 @@ def Typedex(movetype,oppenenttype):
     Strongfire = ["Grass", "Ice", "Bug", "Steel"]
     Weakgrass = ["Fire", "Grass", "Dragon"]
     Stronggrass = ["Water", "Ground", "Rock"]
-
+    ImmuneElectric = ["Ground"]
+    WeakElectric = ["Dragon"]
+    StorngElectric = ["Flying", "Water"]
+    ImmuneNormal = ["Ghost"]
+    WeakNormal = [""]
     #Weak = ["", "", "", ""]
     #Strong = ["", "", "", ""]
     Effectiveness = 1
@@ -49,15 +53,27 @@ def Typedex(movetype,oppenenttype):
             Effectiveness = 0.5
         if oppenenttype in Stronggrass:
             Effectiveness = 2
+    if movetype == "Normal":
+        if oppenenttype in ImmuneNormal:
+            Effectiveness = 0
+        if oppenenttype in WeakNormal:
+            Effectiveness = 0.5
+    if movetype == "Electric":
+        if oppenenttype in ImmuneElectric:
+            Effectiveness = 0
+        if oppenenttype in WeakElectric:
+            Effectiveness = 0.5
+        if oppenenttype in StorngElectric:
+            Effectiveness = 2
     return Effectiveness
 
 def PokemonSelction(Pokemon):
-    Dex = ["Treeko", "Oshawott", "Litten"]
+    Dex = ["Treeko", "Oshawott", "Litten", "Pikachu", "Eevee"]
     Selctedpokemon = Dex[Pokemon]
     return Selctedpokemon
 
 def PokemonType(Pokemon):
-    Types = ["Grass","Water","Fire"]
+    Types = ["Grass","Water","Fire", "Electric", "Normal"]
     Type = Types[Pokemon]
     return Type
 
@@ -118,7 +134,9 @@ pygame.mixer.music.load("Theme.ogg")
 Dex = {
     "Treeko" : ["Scratch", "Absorb", "Tail whip"],
     "Litten" : ["Tackle", "Ember", "Tail whip"],
-    "Oshawott" : ["Tackle", "Water Gun", "Tail whip"]
+    "Oshawott" : ["Tackle", "Water Gun", "Tail whip"],
+    "Pikachu" : ["Tackle", "Thunder Shock", "Tail Whip"],
+    "Eevee": ["Tackle", "Quick Attack", "Tail Whip"]
 }
 #Running of games
 running = True
@@ -139,6 +157,12 @@ while running:
                 if event.key == pygame.K_e:
                     pokemon = 2  # toggle
                     print ("3")
+                if event.key == pygame.K_r:
+                    pokemon = 3  # toggle
+                    print ("4")
+                if event.key == pygame.K_t:
+                    pokemon = 4  # toggle
+                    print ("5")
 
                 if pokemon >= 0:
                     print ("Checking")
@@ -296,9 +320,9 @@ while running:
         screen.blit(resized_ui, (0, 500))
         resized_ui = pygame.transform.scale(ui_img, (1000, 200))
         pygame.draw.rect(screen, black, (670, 370, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (675, 375, yourHealth * 10 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (675, 375, yourHealth * 6 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
         pygame.draw.rect(screen, black, (20, 85, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 10, BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 6, BAR_HEIGHT), border_radius=CURVE_RADIUS)
         msg = attackmsg if battlestate > 1 else ("Select Move (1,2,3)")
         text3 = font.render(msg, True, black,)
 
