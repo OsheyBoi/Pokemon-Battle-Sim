@@ -11,6 +11,7 @@ V1.2 Checklist
   - Easy to add more Pokemon
   - Updated Hp / Defence 
 - 2 New Pokemon (Eevee and Pikachu) ❌
+- Small Sprte Update  ❌
 - New icon ❌
 
 
