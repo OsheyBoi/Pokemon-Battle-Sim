@@ -1,9 +1,10 @@
 import random
-from ctypes.macholib.dyld import dyld_executable_path_search
-
+from bdb import effective
+from tkinter.constants import NORMAL
 import pygame
 import time
 global state, pokemon, yourpokemon, battlestate, attackmsg, yourHealth, Defence, ui_img, rival_img, player_img, background_img, Dex
+global playermove, Type, rivalType
 pygame.init()
 # Set the base of each variable
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
@@ -16,12 +17,60 @@ opponentDefence = 1
 battlestate = 1
 attackmsg = "na"
 
-def Attack(Damage):
-    min = Damage - 1
-    max = Damage + 1
-    Damage = random.randint(min,max)
+#Attack Damage
+def Attack():
+    Damage = random.randint(4,6)
     return Damage
 
+# Effictiveness Checker
+def Typedex(movetype,oppenenttype):
+    Weakwater = ["Water", "Grass","Dragon"]
+    Strongwater = ["Fire", "Rock", "Ground"]
+    Weakfire = ["Fire", "Water","Rock", "Dragon"]
+    Strongfire = ["Grass", "Ice", "Bug", "Steel"]
+    Weakgrass = ["Fire", "Grass", "Dragon"]
+    Stronggrass = ["Water", "Ground", "Rock"]
+
+    #Weak = ["", "", "", ""]
+    #Strong = ["", "", "", ""]
+    Effectiveness = 1
+    if movetype == "Water":
+        if oppenenttype in Weakwater:
+            Effectiveness = 0.5
+        if oppenenttype in Strongwater:
+            Effectiveness = 2
+    if movetype == "Fire":
+        if oppenenttype in Weakfire:
+            Effectiveness = 0.5
+        if oppenenttype in Strongfire:
+            Effectiveness = 2
+    if movetype == "Grass":
+        if oppenenttype in Weakgrass:
+            Effectiveness = 0.5
+        if oppenenttype in Stronggrass:
+            Effectiveness = 2
+    return Effectiveness
+
+def PokemonSelction(Pokemon):
+    Dex = ["Treeko", "Oshawott", "Litten"]
+    Selctedpokemon = Dex[Pokemon]
+    return Selctedpokemon
+
+def PokemonType(Pokemon):
+    Types = ["Grass","Water","Fire"]
+    Type = Types[Pokemon]
+    return Type
+
+def Movetype(move,Usertype):
+    a = 0
+    if move == 0:
+        Type = 'Normal'
+        a = 1
+    if move == 1:
+        Type = Usertype
+        a = 1
+    if a == 1:
+        return Type
 
 pygame.init()
 screen = pygame.display.set_mode((1000, 700))
@@ -77,30 +126,32 @@ while running:
     current_time = pygame.time.get_ticks()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
+
             # starter selection
             if state == 1:
-                if event.key == pygame.K_4:
-                    yourpokemon = "Treeko"
+                pokemon = -1
+                if event.key == pygame.K_q:
+                    pokemon = 0
+                    print ("1")
+                if event.key == pygame.K_w:
                     pokemon = 1  # toggle
-                    opponentpokemon = "Litten"
-                    state = 2
-                    print("P1")
-                    pygame.mixer.music.play(loops=10)
-
-                if event.key == pygame.K_5:
-                    yourpokemon = "Oshawott"
+                    print ("2")
+                if event.key == pygame.K_e:
                     pokemon = 2  # toggle
-                    opponentpokemon = "Treeko"
-                    state = 2
-                    print("P2")
-                    pygame.mixer.music.play(loops=10)
+                    print ("3")
 
-                if event.key == pygame.K_6:
-                    yourpokemon = "Litten"
-                    pokemon = 3  # toggle
-                    opponentpokemon = "Oshawott"
+                if pokemon >= 0:
+                    print ("Checking")
+                    yourpokemon = PokemonSelction(pokemon)
+                    Type = PokemonType(pokemon)
+                    #Auto Rival Pokemon Selector
+                    rivalnumber = random.randint(0,2)
+                    opponentpokemon = PokemonSelction(rivalnumber)
+                    rivalType = PokemonType(rivalnumber)
+
+
+                    print (yourpokemon + " : " + Type)
                     state = 2
-                    print("P3")
                     pygame.mixer.music.play(loops=10)
 
             # Move Selection
@@ -108,31 +159,45 @@ while running:
                 if battlestate == 1 and current_time > display_until:
                     print("Loaded State 2")
                     moveused = 0
-                    Base = 5 # Base Damage
-
+                    damage = Attack()
                     if event.key == pygame.K_1:
+                        damage = Attack()
                         playermove = 0
-                        damage = Attack(Base)
-                        opponentHealth = opponentHealth - damage  * opponentDefence
                         moveused = 1
+
                     if event.key == pygame.K_2:
+                        damage = Attack()
                         playermove = 1
-                        damage = Attack(Base)
-                        opponentHealth = opponentHealth - damage * opponentDefence / 2
                         moveused = 1
+
 
                     if event.key == pygame.K_3:
+                        AttackType = "NA"
+                        damage = 0
                         playermove = 2
                         opponentDefence = opponentDefence + 0.3
                         moveused = 1
 
+                    #After move selected
                     if moveused == 1:
+                        print("Moveused?")
+                        if playermove != 2:
+                            AttackType = Movetype(playermove, Type)
+                            print(rivalType)
+                            effectiveness = Typedex(AttackType,rivalType)
+                            print(effectiveness)
+                            opponentHealth = opponentHealth - damage * opponentDefence * effectiveness
+                        else :
+                            Attacktype = "NA"
+                            print('Lower Defence')
                         move = (Dex)[yourpokemon][playermove]
+                        print("Player:" + move + " : " + str(AttackType) + ' : ' + str(opponentHealth) + " : " + str(effectiveness) )
                         attackmsg = (yourpokemon + " used " + move)
                         moveused = 0
                         battlestate = 2
                         ui_img = pygame.image.load("Textbox.png").convert_alpha()
                         display_until = current_time + 1500
+                        print("skip")
         # Quit once win/lose
         if state >= 3:
             if event.key == pygame.K_SPACE:
@@ -140,32 +205,31 @@ while running:
     if state == 2:
         # Ai Attack
         if battlestate == 2 and current_time > display_until:
-            Ai_move = (random.randint(1, 3))
+            Ai_move = (random.randint(0, 2))
             print(Ai_move)
-            Base = 5
-            if Ai_move == 1:
-                damage = Attack(Base)
-                yourHealth = yourHealth - damage * Defence
-                print("aimoveused")
+            damage = Attack()
 
+            if Ai_move == 0 or 1:
+                moveused = 1
 
             if Ai_move == 2:
-                damage = Attack(Base)
-                yourHealth = yourHealth - damage * Defence * 2
-                print("aimoveused")
-
-
-            if Ai_move == 3:
+                AttackType = "NA"
+                damage = 0
                 Defence = Defence + 0.3
                 moveused = 1
-                print("aimoveused")
 
             if moveused == 1:
-                move = (Dex)[yourpokemon][playermove]
-                attackmsg = (opponentpokemon + " used " + move)
-                display_until = current_time + 1500
-                battlestate = 3
-                moveused = 0
+                    print("aimoveused")
+                    if Ai_move != 2:
+                        AttackType = Movetype(Ai_move, rivalType)
+                        effectiveness = Typedex(AttackType,Type)
+                        yourHealth = yourHealth - damage * Defence * effectiveness
+                    move2 = (Dex)[opponentpokemon][Ai_move]
+                    print(move2 + " : " + str(AttackType) + ' : ' +  str(yourHealth) +  " : " + str(effectiveness))
+                    attackmsg = (opponentpokemon + " used " + move2)
+                    display_until = current_time + 1500
+                    battlestate = 3
+                    moveused = 0
         #Disable Textbox
         if battlestate == 3 and current_time > display_until:
             battlestate = 1
