@@ -31,13 +31,15 @@ def Typedex(movetype,oppenenttype):
     Weakgrass = ["Fire", "Grass", "Dragon"]
     Stronggrass = ["Water", "Ground", "Rock"]
     ImmuneElectric = ["Ground"]
-    WeakElectric = ["Dragon"]
+    WeakElectric = ["Dragon, Electric", "Grass"]
     StorngElectric = ["Flying", "Water"]
     ImmuneNormal = ["Ghost"]
-    WeakNormal = [""]
+    WeakNormal = ["Rock", "Steel"]
     #Weak = ["", "", "", ""]
     #Strong = ["", "", "", ""]
     Effectiveness = 1
+
+
     if movetype == "Water":
         if oppenenttype in Weakwater:
             Effectiveness = 0.5
@@ -169,7 +171,7 @@ while running:
                     yourpokemon = PokemonSelction(pokemon)
                     Type = PokemonType(pokemon)
                     #Auto Rival Pokemon Selector
-                    rivalnumber = random.randint(0,2)
+                    rivalnumber = random.randint(0,4)
                     opponentpokemon = PokemonSelction(rivalnumber)
                     rivalType = PokemonType(rivalnumber)
 
