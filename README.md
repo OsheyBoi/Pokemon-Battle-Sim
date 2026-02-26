@@ -3,7 +3,7 @@ Battle Simulator By Oshey
 
 Last Full Release - V2.0
 
-Dev Version - V2.1
+Dev Version - V2.1 / V3.0
 ___________________________________________________
 
 -------------------------------
@@ -11,19 +11,27 @@ V2.1 Checklist
 -----------------------------
 
 - Update Pikachu and Eevee Sprite
-- 2 New Pokemon (???, ???)
+- 1 New Pokemon (Snubbull)
 
 Modified:
-Base Attack - (5 -> 6)
-Damage Range -  (+/- 1) -> (+/- 2)
-Base Defence - 0.75 ->  1.0
-Tail Whip Defence lowering - 0.3 -> 0.4 
+Damage Amount:
+-  Base Attack - (5 -> 6)
+-  Damage Range -  (+/- 1) -> (+/- 2)
+-  Base Defence - 0.75 ->  1.0
+-  Tail Whip Defence lowering - 0.3 -> 0.4 
 
 
 
-___________________________________________________
+-------------------------------
+V3 Checklist
+-----------------------------
 
-For now version number will only incress by +0.1
+- 1st Dual type Pokemon (Kabuto)
+- Loading Screen
+- More infomation
+- And more
+
+
 ___________________________________________________
 A simple pokemon battle simulator base on Python
 
