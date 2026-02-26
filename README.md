@@ -6,7 +6,7 @@ Last Full Release - V2.0
 Dev Version - V2.1 / V3.0
 
 -------------------------------
-V2.1  -  March 4th
+V2.1  -  March 2th
 -----------------------------
 
 Update Name: Freinds n Damage 
@@ -24,7 +24,7 @@ Damage Amount:
 
 
 -------------------------------
-V3 Checklist - March 9th*
+V3 Checklist - March 9th
 -----------------------------
 
 Update Name: Update Profeser Oshey*
@@ -38,9 +38,10 @@ Update Name: Update Profeser Oshey*
    - Kabuto
    - Snubbull
 
-
+-
 
 * Subject to change
+Release date can change at any point
 ___________________________________________________
 A simple pokemon battle simulator base on Python
 
