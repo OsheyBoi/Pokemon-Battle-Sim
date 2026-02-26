@@ -1,7 +1,7 @@
 Battle Simulator By Oshey
 -------------------------------
+
 Last Full Release - V2.0
-___________________________________________________
 
 Dev Version - V2.1
 ___________________________________________________
@@ -11,6 +11,13 @@ V2.1 Checklist
 -----------------------------
 
 - Update Pikachu and Eevee Sprite
+- 2 New Pokemon (???, ???)
+
+Modified:
+Base Attack - (5 -> 6)
+Damage Range -  (+/- 1) -> (+/- 2)
+Base Defence - 0.75 ->  1.0
+Tail Whip Defence lowering - 0.3 -> 0.4 
 
 
 
