@@ -303,7 +303,6 @@ while running:
             ui_img = pygame.image.load("Textbox.png").convert_alpha()
     #Location of text/sprite
     screen.blit(resized_background, (0, 0))
-    screen.blit(resized_ui, (0, 500))
     screen.blit(resized_player, (40, 280))
     screen.blit(resized_rival, (700,60 ))
     screen.blit(playerHp_img, (0, 270))
