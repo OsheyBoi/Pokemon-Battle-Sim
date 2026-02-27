@@ -11,10 +11,14 @@ V2.1  -  March 2th
 
 Update Name: Freinds n Damage 
 
+New Addtions
 - 1 New Pokemon (Snubbull)
 - 1st Dual type Pokemon (Kabuto)
   
 Modified:
+Logo: 
+Added Snubbull and Kabuto
+
 Damage Amount:
 -  Base Attack - (5 -> 6)
 -  Damage Range -  (+/- 1) -> (+/- 2)
@@ -38,7 +42,14 @@ Update Name: Update Profeser Oshey*
    - Kabuto
    - Snubbull
 
--
+Moddifed/Update
+- Sprites:  ❌
+   - Treeko
+   - Pikachu
+   - Eevee
+   - Kabuto
+   - Snubbull
+- Update V3 Logo 
 
 * Subject to change
 Release date can change at any point
