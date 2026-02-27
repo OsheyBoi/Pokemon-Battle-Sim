@@ -8,18 +8,18 @@ global playermove, Type, rivalType
 pygame.init()
 # Set the base of each variable
 state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
-yourHealth = 50
+yourHealth = 40
 display_until = 1
 current_time = 1
-opponentHealth = 50
-Defence = 0.75
-opponentDefence = 0.75
+opponentHealth = 40
+Defence = 1.0
+opponentDefence = 1.0
 battlestate = 1
 attackmsg = "na"
 
 #Attack Damage
 def Attack():
-    Damage = random.randint(4,6)
+    Damage = random.randint(3,7)
     return Damage
 
 # Effictiveness Checker
@@ -70,17 +70,21 @@ def Typedex(movetype,oppenenttype):
     return Effectiveness
 
 def PokemonSelction(Pokemon):
-    Dex = ["Treeko", "Oshawott", "Litten", "Pikachu", "Eevee"]
+    Dex = ["Treeko", "Oshawott", "Litten", "Pikachu", "Eevee", "Snubbull", "Kabuto"]
     Selctedpokemon = Dex[Pokemon]
     return Selctedpokemon
 
 def PokemonType(Pokemon):
-    Types = ["Grass","Water","Fire", "Electric", "Normal"]
+    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
     Type = Types[Pokemon]
     return Type
 
 def Movetype(move,Usertype):
     a = 0
+    # For Kabuto
+    if Usertype == "Water/Rock" :
+        Usertype = "Water"
+
     if move == 0:
         Type = 'Normal'
         a = 1
@@ -138,7 +142,9 @@ Dex = {
     "Litten" : ["Tackle", "Ember", "Tail whip"],
     "Oshawott" : ["Tackle", "Water Gun", "Tail whip"],
     "Pikachu" : ["Tackle", "Thunder Shock", "Tail Whip"],
-    "Eevee": ["Tackle", "Quick Attack", "Tail Whip"]
+    "Eevee": ["Tackle", "Quick Attack", "Tail Whip"],
+    "Snubbull": ["Tackle", "Play Rough", "Tail Whip"],
+    "Kabuto": ["Scratch", "Water Gun", "Leer"]
 }
 #Running of games
 running = True
@@ -165,6 +171,12 @@ while running:
                 if event.key == pygame.K_t:
                     pokemon = 4  # toggle
                     print ("5")
+                if event.key == pygame.K_y:
+                    pokemon = 5  # toggle
+                    print ("6")
+                if event.key == pygame.K_u:
+                    pokemon = 6  # toggle
+                    print ("7")
 
                 if pokemon >= 0:
                     print ("Checking")
@@ -201,7 +213,7 @@ while running:
                         AttackType = "NA"
                         damage = 0
                         playermove = 2
-                        opponentDefence = opponentDefence + 0.3
+                        opponentDefence = opponentDefence + 0.4
                         moveused = 1
 
                     #After move selected
@@ -241,7 +253,7 @@ while running:
             if Ai_move == 2:
                 AttackType = "NA"
                 damage = 0
-                Defence = Defence + 0.3
+                Defence = Defence + 0.4
                 moveused = 1
 
             if moveused == 1:
