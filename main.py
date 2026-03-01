@@ -28,13 +28,18 @@ def Typedex(movetype,oppenenttype):
     Strongwater = ["Fire", "Rock", "Ground"]
     Weakfire = ["Fire", "Water","Rock", "Dragon"]
     Strongfire = ["Grass", "Ice", "Bug", "Steel"]
+    Reallystronggrass = ["Water/Rock"]
     Weakgrass = ["Fire", "Grass", "Dragon"]
     Stronggrass = ["Water", "Ground", "Rock"]
     ImmuneElectric = ["Ground"]
     WeakElectric = ["Dragon, Electric", "Grass"]
-    StorngElectric = ["Flying", "Water"]
+    StorngElectric = ["Flying", "Water", 'Water/Rock']
     ImmuneNormal = ["Ghost"]
     WeakNormal = ["Rock", "Steel"]
+    StrongFairy = ["Fighting", "Dragon", "Dark"]
+    WeakFariy = ["Fire","Poison", "Steel"]
+    StrongFairy = ["Fighting", "Dragon", "Dark"]
+    WeakFariy = ["Fire","Poison", "Steel"]
     #Weak = ["", "", "", ""]
     #Strong = ["", "", "", ""]
     Effectiveness = 1
@@ -55,6 +60,8 @@ def Typedex(movetype,oppenenttype):
             Effectiveness = 0.5
         if oppenenttype in Stronggrass:
             Effectiveness = 2
+        if oppenenttype in Reallystronggrass:
+            Effectiveness = 4
     if movetype == "Normal":
         if oppenenttype in ImmuneNormal:
             Effectiveness = 0
@@ -66,6 +73,11 @@ def Typedex(movetype,oppenenttype):
         if oppenenttype in WeakElectric:
             Effectiveness = 0.5
         if oppenenttype in StorngElectric:
+            Effectiveness = 2
+    if movetype == "Fairy":
+        if oppenenttype in WeakFariy:
+            Effectiveness = 0.5
+        if oppenenttype in StrongFairy:
             Effectiveness = 2
     return Effectiveness
 
@@ -183,7 +195,7 @@ while running:
                     yourpokemon = PokemonSelction(pokemon)
                     Type = PokemonType(pokemon)
                     #Auto Rival Pokemon Selector
-                    rivalnumber = random.randint(0,4)
+                    rivalnumber = random.randint(0,6)
                     opponentpokemon = PokemonSelction(rivalnumber)
                     rivalType = PokemonType(rivalnumber)
 
