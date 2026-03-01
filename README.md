@@ -6,24 +6,19 @@ Last Full Release - V2.0
 Dev Version - V3.0
 
 -------------------------------
-V3 Checklist - March 12th
+V3 Checklist - March 12th*
 -----------------------------
 
 Update Name: Update Profeser Oshey*
 - Loading Screen                0% ✅
-- More infomation               0% ✅
 - Tutarial (Profeser Oshey)     0% ✅
-- 
-- Updated Sprites for              ❌
-   - Treeko
-   - Pikachu
-   - Eevee
-- 1 New Pokemon (Snubbull)
-- 1st Dual type Pokemon (Kabuto)
+  New Pokemon:
+- 1 New Pokemon (Snubbull) ✅
+- 1st Dual type Pokemon (Kabuto) ✅
 
 
 Moddifed/Update
-- Sprites:  ❌
+- Sprites:  ✅
    - Treeko
    - Pikachu
    - Eevee
