@@ -1,22 +1,46 @@
-<img width="400" height="400" alt="Oshey’s Studio-modified" src="https://github.com/user-attachments/assets/2bc29d9d-1735-40ae-960b-c6f3538a9758" /># Pokemon Battle Simulator By Oshey
+Battle Simulator By Oshey
+-------------------------------
 
-Last Full Release - V1.1
+Last Full Release - V2.0
 
-Dev Version - V2.0
+Dev Version - V3.0
 
-V2.0 Checklist
+-------------------------------
+V3 Checklist - March 12th
+-----------------------------
 
-- Complete Attack system rework ~90% ✅
-  - Type System
-  - Easy to add more Pokemon
-  - Updated Hp / Defence 
-- 2 New Pokemon (Eevee and Pikachu) ✅
-- New icon ✅
+Update Name: Update Profeser Oshey*
+- Loading Screen                0% ✅
+- More infomation               0% ✅
+- Tutarial (Profeser Oshey)     0% ✅
+- 
+- Updated Sprites for              ❌
+   - Treeko
+   - Pikachu
+   - Eevee
+- 1 New Pokemon (Snubbull)
+- 1st Dual type Pokemon (Kabuto)
 
 
+Moddifed/Update
+- Sprites:  ❌
+   - Treeko
+   - Pikachu
+   - Eevee
+- Update V3 Logo + Added Snubbull and Kabuto
 
+Damage Amount:
+-  Base Attack - (5 -> 6)
+-  Damage Range -  (+/- 1) -> (+/- 2)
+-  Base Defence - 0.75 ->  1.0
+-  Tail Whip Defence lowering - 0.3 -> 0.4 
+
+
+* Subject to change
+Release date can change at any point
+___________________________________________________
 A simple pokemon battle simulator base on Python
 
 Background and Treeko from Infinite Fusion
-Oshawott and Litten form Offical Games
+Oshawott, Litten, Pikachu and Eevee form Offical Games
 Music - Sun and Moon Trainer battle
