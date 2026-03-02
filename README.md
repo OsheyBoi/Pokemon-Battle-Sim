@@ -11,7 +11,7 @@ V3 Checklist - March 12th*
 
 Update Name: Update Profeser Oshey*
 - Loading Screen                0% ✅
-- Tutarial (Profeser Oshey)     0% ✅
+- Tutarial 0% ✅
   
   New Pokemon:
 - 1 New Pokemon (Snubbull) ✅
