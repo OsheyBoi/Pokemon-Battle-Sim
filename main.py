@@ -132,10 +132,10 @@ ui_img = pygame.image.load("Name.png")
 resized_ui = pygame.transform.scale(ui_img, (1000, 700))
 
 player_img = pygame.image.load("nothing.png").convert_alpha()
-resized_player = pygame.transform.scale(player_img, (225, 225))
+resized_player = pygame.transform.scale(player_img, (270, 270))
 
 rival_img = pygame.image.load("nothing.png").convert_alpha()
-resized_rival = pygame.transform.scale(rival_img, (225, 225))
+resized_rival = pygame.transform.scale(rival_img, (270, 270))
 
 background_img = pygame.image.load("back.png").convert()
 resized_background = pygame.transform.scale(background_img, (1000, 700))
