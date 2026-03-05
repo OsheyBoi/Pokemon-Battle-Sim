@@ -1,4 +1,7 @@
-Battle Simulator By Oshey
+![Alt text](https://github.com/OsheyBoi/Pokemon-Battle-Sim/blob/main/Name.png)
+
+By Oshey
+
 -------------------------------
 
 Last Full Release - V2.0
