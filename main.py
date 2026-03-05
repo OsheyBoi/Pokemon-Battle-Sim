@@ -4,10 +4,9 @@ from tkinter.constants import NORMAL
 import pygame
 import time
 global state, pokemon, yourpokemon, battlestate, attackmsg, yourHealth, Defence, ui_img, rival_img, player_img, background_img, Dex
-global playermove, Type, rivalType
-pygame.init()
+global playermove, Type, rivalType, resized_background
 # Set the base of each variable
-state = 1  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
+state = 0  # 1 - Selection / 2 - Battle / 3 - Won / 4 - Loss
 yourHealth = 40
 display_until = 1
 current_time = 1
@@ -15,6 +14,9 @@ opponentHealth = 40
 Defence = 1.0
 opponentDefence = 1.0
 battlestate = 1
+effectiveness = 1
+Fade = 0
+FadeSpeed = 3
 attackmsg = "na"
 
 #Attack Damage
@@ -126,7 +128,7 @@ text2 = font.render('', True, black, )
 text3 = font.render('', True, black, )
 
 # Image loading (State 1)
-ui_img = pygame.image.load("selection.png").convert_alpha()
+ui_img = pygame.image.load("Name.png")
 resized_ui = pygame.transform.scale(ui_img, (1000, 700))
 
 player_img = pygame.image.load("nothing.png").convert_alpha()
@@ -161,6 +163,7 @@ Dex = {
 #Running of games
 running = True
 while running:
+    screen.fill((0, 0, 0))
     current_time = pygame.time.get_ticks()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -288,10 +291,24 @@ while running:
 
 
 
+
+    if state == 0:
+        if Fade < 250:
+            print (Fade)
+            #resized_ui.set_alpha(Fade)
+            Fade = Fade + FadeSpeed
+        if Fade >= 250:
+            print("1")
+            state = 1
+
+
+    if state == 1:
+        screen.fill((0, 0, 0))
+        resized_ui = pygame.image.load("selection.png").convert_alpha()
+
     if state == 2:
         #image loader (State 2)
         screen.fill((0, 0, 0))
-        background_img = pygame.image.load("back.png").convert_alpha()
         player_img = pygame.image.load(str(yourpokemon) + " front.png").convert_alpha()
         rival_img = pygame.image.load(str(opponentpokemon) + " back.png").convert_alpha()
 
@@ -333,6 +350,9 @@ while running:
     screen.blit(rivalHp_img, (0 , 0))
     screen.blit(text1, (715, 310))
     screen.blit(text2, (95, 40))
+
+    if state == 0:
+        screen.blit(resized_ui, (0, 0))
 
     if state == 1:
         screen.blit(resized_ui, (0, 0))
