@@ -10,6 +10,10 @@ Dev Version - V4.0
 
 
 
+V4.0 Checklist
+
+- Info on what diffrent lines of code do ❌
+  
 
 -------------------------------
 * Subject to change
