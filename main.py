@@ -11,7 +11,7 @@ yourHealth = 40
 display_until = 1
 current_time = 1
 opponentHealth = 40
-Defence = 100.0
+Defence = 1.0
 opponentDefence = 1.0
 battlestate = 1
 effectiveness = 1
@@ -329,6 +329,7 @@ while running:
         rivalHp_img = pygame.image.load("Hp1.png").convert_alpha()
         text2 = font.render(opponentpokemon, True, black,)
         if opponentHealth <= 0:
+            resized_background = pygame.transform.scale(background_img, (1000, 700))
             state = 3
             resized_ui = pygame.image.load("nothing.png").convert_alpha()
             resized_player = pygame.image.load("nothing.png").convert_alpha()
@@ -376,6 +377,7 @@ while running:
         text3 = font.render("Select your Pokemon", True, black,)
 
     if state == 2:
+        resized_background = pygame.transform.scale(background_img, (1000, 700))
         # HP Bar Drawing
         BAR_HEIGHT = 50
         CURVE_RADIUS = BAR_HEIGHT // 2
