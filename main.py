@@ -11,7 +11,7 @@ yourHealth = 40
 display_until = 1
 current_time = 1
 opponentHealth = 40
-Defence = 1.0
+Defence = 100.0
 opponentDefence = 1.0
 battlestate = 1
 effectiveness = 1
@@ -38,8 +38,6 @@ def Typedex(movetype,oppenenttype):
     StorngElectric = ["Flying", "Water", 'Water/Rock']
     ImmuneNormal = ["Ghost"]
     WeakNormal = ["Rock", "Steel"]
-    StrongFairy = ["Fighting", "Dragon", "Dark"]
-    WeakFariy = ["Fire","Poison", "Steel"]
     StrongFairy = ["Fighting", "Dragon", "Dark"]
     WeakFariy = ["Fire","Poison", "Steel"]
     #Weak = ["", "", "", ""]
@@ -89,6 +87,15 @@ def PokemonSelction(Pokemon):
     return Selctedpokemon
 
 def PokemonType(Pokemon):
+    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
+    Type = Types[Pokemon]
+    return Type
+
+def PokemonDamage(Pokemon):
+    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
+    Type = Types[Pokemon]
+    return Type
+def PokemonDefence(Pokemon):
     Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
     Type = Types[Pokemon]
     return Type
@@ -170,7 +177,7 @@ while running:
 
             # starter selection
             if state == 1:
-                pokemon = -1
+                pokemon = -1 #Set for stay on starter screen
                 if event.key == pygame.K_q:
                     pokemon = 0
                     print ("1")
@@ -251,10 +258,10 @@ while running:
                         ui_img = pygame.image.load("Textbox.png").convert_alpha()
                         display_until = current_time + 1500
                         print("skip")
-        # Quit once win/lose
-        if state >= 3:
-            if event.key == pygame.K_SPACE:
-                quit()
+            # Quit once win/lose
+            if state >= 3:
+                if event.key == pygame.K_SPACE:
+                    quit()
     if state == 2:
         # Ai Attack
         if battlestate == 2 and current_time > display_until:
@@ -290,8 +297,6 @@ while running:
 
 
 
-
-
     if state == 0:
         if Fade < 250:
             print (Fade)
@@ -323,18 +328,30 @@ while running:
 
         rivalHp_img = pygame.image.load("Hp1.png").convert_alpha()
         text2 = font.render(opponentpokemon, True, black,)
+        if opponentHealth <= 0:
+            state = 3
+            resized_ui = pygame.image.load("nothing.png").convert_alpha()
+            resized_player = pygame.image.load("nothing.png").convert_alpha()
+            resized_rival = pygame.image.load("nothing.png").convert_alpha()
+            rivalHp_img = pygame.image.load("nothing.png").convert_alpha()
+            playerHp_img = pygame.image.load("nothing.png").convert_alpha()
+            text1 = font.render("", True, black, )
+            text2 = font.render("", True, black, )
+            resized_background = pygame.image.load("Winner.png").convert()
+            print("Loaded")
 
-        # Winner or loser Screen Updater
-        if state == 3:
-            ui_img = pygame.image.load("nothing.png").convert_alpha()
-            player_img = pygame.image.load("nothing.png").convert_alpha()
-            rival_img = pygame.image.load("nothing.png").convert_alpha()
-            background_img = pygame.image.load("Winner.png").convert()
-        if state == 4:
-            ui_img = pygame.image.load("nothing.png").convert_alpha()
-            player_img = pygame.image.load("nothing.png").convert_alpha()
-            rival_img = pygame.image.load("nothing.png").convert_alpha()
-            background_img = pygame.image.load("Loser.png").convert()
+        elif yourHealth <= 0:
+            state = 4
+            resized_ui = pygame.image.load("nothing.png").convert_alpha()
+            resized_player = pygame.image.load("nothing.png").convert_alpha()
+            resized_rival = pygame.image.load("nothing.png").convert_alpha()
+            rivalHp_img = pygame.image.load("nothing.png").convert_alpha()
+            playerHp_img = pygame.image.load("nothing.png").convert_alpha()
+            text1 = font.render("", True, black, )
+            text2 = font.render("", True, black, )
+            resized_background = pygame.image.load("Loser.png").convert()
+            print("Loaded")
+
     # Textbox Updater
     if state  == 2:
         if battlestate == 1:
@@ -365,9 +382,9 @@ while running:
         screen.blit(resized_ui, (0, 500))
         resized_ui = pygame.transform.scale(ui_img, (1000, 200))
         pygame.draw.rect(screen, black, (670, 370, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (675, 375, yourHealth * 6 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (675, 375, yourHealth * 7.5 , BAR_HEIGHT), border_radius=CURVE_RADIUS)
         pygame.draw.rect(screen, black, (20, 85, 310, 60), border_radius=30)
-        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 6, BAR_HEIGHT), border_radius=CURVE_RADIUS)
+        pygame.draw.rect(screen, green, (25, 90, opponentHealth * 7.5, BAR_HEIGHT), border_radius=CURVE_RADIUS)
         msg = attackmsg if battlestate > 1 else ("Select Move (1,2,3)")
         text3 = font.render(msg, True, black,)
 
@@ -381,11 +398,6 @@ while running:
           screen.blit(text3, (300, 575))
     # Set to win or lose
 
-    if opponentHealth <= 0:
-        state = 3
-
-    if yourHealth <= 0:
-        state = 4
 
     pygame.display.flip()
 clock.tick(60)
