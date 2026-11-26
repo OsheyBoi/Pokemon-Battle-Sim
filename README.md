@@ -4,17 +4,13 @@ By Oshey
 
 -------------------------------
 
-Last Full Release - V3.0
+Last Full Release - V3.1
 
-Dev Version - V4.0
+Dev Version - V4
 
 
-
-V4.0 Checklist
-
-- Info on what diffrent lines of code do ❌
-  
-
+-------------------------------
+V4.0 will start development soon as I'm currently not working on this much
 -------------------------------
 * Subject to change
 Release date can change at any point
