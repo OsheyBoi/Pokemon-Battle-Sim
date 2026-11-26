@@ -25,17 +25,16 @@ def Attack():
     return Damage
 
 # Effictiveness Checker
-def Typedex(movetype,oppenenttype):
+def Typedex(movetype, Type_1, Type_2 ):
     Weakwater = ["Water", "Grass","Dragon"]
     Strongwater = ["Fire", "Rock", "Ground"]
     Weakfire = ["Fire", "Water","Rock", "Dragon"]
     Strongfire = ["Grass", "Ice", "Bug", "Steel"]
-    Reallystronggrass = ["Water/Rock"]
     Weakgrass = ["Fire", "Grass", "Dragon"]
     Stronggrass = ["Water", "Ground", "Rock"]
     ImmuneElectric = ["Ground"]
     WeakElectric = ["Dragon, Electric", "Grass"]
-    StorngElectric = ["Flying", "Water", 'Water/Rock']
+    StorngElectric = ["Flying", "Water"]
     ImmuneNormal = ["Ghost"]
     WeakNormal = ["Rock", "Steel"]
     StrongFairy = ["Fighting", "Dragon", "Dark"]
@@ -46,39 +45,39 @@ def Typedex(movetype,oppenenttype):
 
 
     if movetype == "Water":
-        if oppenenttype in Weakwater:
-            Effectiveness = 0.5
-        if oppenenttype in Strongwater:
-            Effectiveness = 2
+        if Type_1 or Type_2 in Weakwater:
+            Effectiveness *= 0.5
+        if Type_1 or Type_2 in Strongwater:
+            Effectiveness *= 2
     if movetype == "Fire":
-        if oppenenttype in Weakfire:
-            Effectiveness = 0.5
-        if oppenenttype in Strongfire:
-            Effectiveness = 2
+        if Type_1 or Type_2 in Weakfire:
+            Effectiveness *= 0.5
+        if Type_1 or Type_2 in Strongfire:
+            Effectiveness *= 2
     if movetype == "Grass":
-        if oppenenttype in Weakgrass:
-            Effectiveness = 0.5
-        if oppenenttype in Stronggrass:
-            Effectiveness = 2
-        if oppenenttype in Reallystronggrass:
-            Effectiveness = 4
+        if Type_1 or Type_2 in Weakgrass:
+            Effectiveness *= 0.5
+        if Type_1 or Type_2 in Stronggrass:
+            Effectiveness *= 2
+        if Type_1 and Type_2 in Stronggrass:
+            Effectiveness *= 4
     if movetype == "Normal":
-        if oppenenttype in ImmuneNormal:
-            Effectiveness = 0
-        if oppenenttype in WeakNormal:
-            Effectiveness = 0.5
+        if Type_1 or Type_2 in ImmuneNormal:
+            Effectiveness *= 0
+        if Type_1 or Type_2 in WeakNormal:
+            Effectiveness *= 0.5
     if movetype == "Electric":
-        if oppenenttype in ImmuneElectric:
-            Effectiveness = 0
-        if oppenenttype in WeakElectric:
-            Effectiveness = 0.5
-        if oppenenttype in StorngElectric:
-            Effectiveness = 2
+        if Type_1 or Type_2 in ImmuneElectric:
+            Effectiveness *= 0
+        if Type_1 or Type_2 in WeakElectric:
+            Effectiveness *= 0.5
+        if Type_1 or Type_2 in StorngElectric:
+            Effectiveness *= 2
     if movetype == "Fairy":
-        if oppenenttype in WeakFariy:
-            Effectiveness = 0.5
-        if oppenenttype in StrongFairy:
-            Effectiveness = 2
+        if Type_1 or Type_2 in WeakFariy:
+            Effectiveness *= 0.5
+        if Type_1 or Type_2 in StrongFairy:
+            Effectiveness *= 2
     return Effectiveness
 
 def PokemonSelction(Pokemon):
@@ -87,24 +86,16 @@ def PokemonSelction(Pokemon):
     return Selctedpokemon
 
 def PokemonType(Pokemon):
-    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
+    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water"]
     Type = Types[Pokemon]
     return Type
-
-def PokemonDamage(Pokemon):
-    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
-    Type = Types[Pokemon]
-    return Type
-def PokemonDefence(Pokemon):
-    Types = ["Grass","Water","Fire", "Electric", "Normal", "Fairy", "Water/Rock"]
+def PokemonType2(Pokemon):
+    Types = ["NA","NA","NA", "NA", "NA", "NA", "Rock"]
     Type = Types[Pokemon]
     return Type
 
 def Movetype(move,Usertype):
     a = 0
-    # For Kabuto
-    if Usertype == "Water/Rock" :
-        Usertype = "Water"
 
     if move == 0:
         Type = 'Normal'
@@ -165,7 +156,7 @@ Dex = {
     "Pikachu" : ["Tackle", "Thunder Shock", "Tail Whip"],
     "Eevee": ["Tackle", "Quick Attack", "Tail Whip"],
     "Snubbull": ["Tackle", "Play Rough", "Tail Whip"],
-    "Kabuto": ["Scratch", "Water Gun", "Leer"]
+    "Kabuto": ["Tackle", "Water Gun", "Leer"]
 }
 #Running of games
 running = True
@@ -203,14 +194,16 @@ while running:
                 if pokemon >= 0:
                     print ("Checking")
                     yourpokemon = PokemonSelction(pokemon)
-                    Type = PokemonType(pokemon)
+                    Type_1 = PokemonType(pokemon)
+                    Type_2 = PokemonType2(pokemon)
                     #Auto Rival Pokemon Selector
                     rivalnumber = random.randint(0,6)
                     opponentpokemon = PokemonSelction(rivalnumber)
-                    rivalType = PokemonType(rivalnumber)
+                    rivalType_1 = PokemonType(rivalnumber)
+                    rivalType_2 = PokemonType2(rivalnumber)
 
 
-                    print (yourpokemon + " : " + Type)
+                    print (yourpokemon + " : " + Type_1 + " / " + Type_2)
                     state = 2
                     pygame.mixer.music.play(loops=10)
 
@@ -242,9 +235,9 @@ while running:
                     if moveused == 1:
                         print("Moveused?")
                         if playermove != 2:
-                            AttackType = Movetype(playermove, Type)
-                            print(rivalType)
-                            effectiveness = Typedex(AttackType,rivalType)
+                            AttackType = Movetype(playermove, Type_1)
+                            print(rivalType_1 + " / " + rivalType_2)
+                            effectiveness = Typedex(AttackType,rivalType_1, rivalType_2)
                             print(effectiveness)
                             opponentHealth = opponentHealth - damage * opponentDefence * effectiveness
                         else :
@@ -271,6 +264,7 @@ while running:
 
             if Ai_move == 0 or 1:
                 moveused = 1
+                print(Type_1)
 
             if Ai_move == 2:
                 AttackType = "NA"
@@ -281,8 +275,8 @@ while running:
             if moveused == 1:
                     print("aimoveused")
                     if Ai_move != 2:
-                        AttackType = Movetype(Ai_move, rivalType)
-                        effectiveness = Typedex(AttackType,Type)
+                        AttackType = Movetype(Ai_move, rivalType_1)
+                        effectiveness = Typedex(AttackType,Type_1, Type_2)
                         yourHealth = yourHealth - damage * Defence * effectiveness
                     move2 = (Dex)[opponentpokemon][Ai_move]
                     print(move2 + " : " + str(AttackType) + ' : ' +  str(yourHealth) +  " : " + str(effectiveness))
